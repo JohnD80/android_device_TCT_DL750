@@ -1,0 +1,24 @@
+From 131bb839caf06ec157bba19dcbcb6bd62e574dbf Mon Sep 17 00:00:00 2001
+From: LineageOS-MTK <luzejij@binka.me>
+Date: Thu, 9 Feb 2017 20:24:11 +0300
+Subject: [PATCH] Ignore fake nvram wifi by @fire855
+
+---
+ wpa_supplicant/bss.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/wpa_supplicant/bss.c b/wpa_supplicant/bss.c
+index 39a16095..46ae2b39 100644
+--- a/wpa_supplicant/bss.c
++++ b/wpa_supplicant/bss.c
+@@ -399,6 +399,10 @@ static struct wpa_bss * wpa_bss_add(struct wpa_supplicant *wpa_s,
+ 			   "not get here!", (int) wpa_s->num_bss + 1);
+ 		wpa_s->conf->bss_max_count = wpa_s->num_bss + 1;
+ 	}
++	
++	if (strncmp(wpa_ssid_txt(ssid, ssid_len), "NVRAM WARNING: Err =", strlen("NVRAM WARNING: Err =")) == 0) {
++	    return NULL;
++	}
+ 
+ 	dl_list_add_tail(&wpa_s->bss, &bss->list);
+ 	dl_list_add_tail(&wpa_s->bss_id, &bss->list_id);

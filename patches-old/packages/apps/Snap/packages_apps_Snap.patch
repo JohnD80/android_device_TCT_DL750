@@ -1,0 +1,24 @@
+From 07e923e3b064a069de9e890518cf9638b5dcf81e Mon Sep 17 00:00:00 2001
+From: LineageOS-MTK <luzejij@binka.me>
+Date: Tue, 7 Feb 2017 17:16:25 +0300
+Subject: [PATCH] Cam/snap: temporarily fix missing icon on desktop.
+
+Temporarily fix the missing icon of camera/snap on desktop.
+---
+ src/com/android/camera/DisableCameraReceiver.java | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/com/android/camera/DisableCameraReceiver.java b/src/com/android/camera/DisableCameraReceiver.java
+index 4cef85f46..4ca545f3d 100644
+--- a/src/com/android/camera/DisableCameraReceiver.java
++++ b/src/com/android/camera/DisableCameraReceiver.java
+@@ -44,7 +44,8 @@ public void onReceive(Context context, Intent intent) {
+         if (!needCameraActivity) {
+             Log.i(TAG, "disable all camera activities");
+             for (int i = 0; i < ACTIVITIES.length; i++) {
+-                disableComponent(context, ACTIVITIES[i]);
++                //disableComponent(context, ACTIVITIES[i]);
++                disableComponent(context, "com.android.camera.DisableCameraReceiver");
+             }
+         }
+ 
